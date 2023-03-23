@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Ms_catalogue extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $guarded = [
+        'id'
+    ];
+
+    public function images()
+    {
+        return $this->hasMany(Tr_image::class, 'catalogue_id', 'id');
+    }
+}

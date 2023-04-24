@@ -22,11 +22,15 @@
             </li>
             <li class="nav-item"><a href="/katalog"><i
                         class="menu-livicon"data-icon="morph-folder"></i><span
-                        class="menu-title"data-i18n="File Manager">Catalog</span></a>
+                        class="menu-title"data-i18n="Catalog">Catalog</span></a>
             </li>
-            <li class="nav-item"><a href="app-file-manager.html"><i
-                        class="menu-livicon"data-icon="morph-bookmark"></i><span
-                        class="menu-title"data-i18n="File Manager">Pesananku</span></a>
+            <li class="nav-item"><a href="/keranjangku"><i
+                        class="menu-livicon"data-icon="shoppingcart-in"></i><span
+                        class="menu-title"data-i18n="Pesananku">Pesananku</span></a>
+            </li>
+            <li class="nav-item"><a href="/transaksi"><i
+                        class="menu-livicon"data-icon="credit-card-out"></i><span
+                        class="menu-title"data-i18n="Transaksi">Data Transaksi</span></a>
             </li>
 
             <li class="navigation-header"><span>UI Elements</span>
@@ -40,7 +44,11 @@
                 <li class="nav-item"><a href="/master/size"><i
                             class="menu-livicon"data-icon="calculator"></i><span
                             class="menu-title"data-i18n="File Manager">Data Size dan Harga</span></a>
-                </li>                
+                </li>       
+                <li class="nav-item"><a href="/master/transaksi"><i
+                    class="menu-livicon"data-icon="calculator"></i><span
+                    class="menu-title"data-i18n="File Manager">Data Pemesan</span></a>
+        </li>                
             @endrole()
         </ul>
     </div>

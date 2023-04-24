@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RajaOngkirController;
 use App\Http\Controllers\SizePriceController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +40,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/katalog', [KatalogController::class, 'shop']);
     Route::get('/katalog/detail/{slug}', [KatalogController::class, 'detail']);
+    Route::post('/store-pembelian', [CartController::class, 'store_item']);
+
+    Route::get('/keranjangku', [CartController::class, 'pesananku']);
+    Route::get('/keranjangku/detil-item/{id}', [CartController::class, 'pesananku_item']);
+    Route::post('/keranjangku/store-item', [CartController::class, 'edit_pesananku']);
+    
+    Route::post('/keranjangku/checkout', [PaymentController::class, 'checkout']);
+    Route::get('/transaksi', [PaymentController::class, 'transaksi_all']);
+    Route::get('/transaksi/unpaid/{id}', [PaymentController::class, 'unpaid']);
+
+    Route::post('/transaksi/unggah_pembayaran', [PaymentController::class, 'unggah_pembayaran']);
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
@@ -46,4 +60,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 
     Route::get('/master/size', [SizePriceController::class, 'index']);
     Route::post('/master/size/simpan', [SizePriceController::class, 'store']);
+
+    Route::get('/master/transaksi', [PaymentController::class, 'data_bayar']);
+    Route::get('/master/transaksi/approve/{id}', [PaymentController::class, 'approve']);
 });
+
+Route::get('/getProvince', [RajaOngkirController::class, 'getProvince']);
+Route::get('/getCities/{id}', [RajaOngkirController::class, 'getCities']);
+Route::get('/getSub', [RajaOngkirController::class, 'getSubdistrict']);
+Route::get('/getCost/{destination}', [RajaOngkirController::class, 'getCost']);
+

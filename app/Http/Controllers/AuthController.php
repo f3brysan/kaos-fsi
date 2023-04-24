@@ -39,6 +39,10 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = auth()->user();
             $biodataCheck = Tr_biodata::where('user_id', $user->id)->first();
+
+            if (empty($biodataCheck)) {
+                return redirect('biodata/create');
+            }
             Session::put('bio', $biodataCheck);
 
             return redirect()->intended('/');

@@ -106,17 +106,22 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="form-tambah-edit" name="form-tambah-edit" enctype="multipart/form-data">
+                <form id="form-tambah-edit" name="form-tambah-edit" enctype="multipart/form-data" method="post"
+                    action="/store-pembelian">
+                    @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
+                        <input type="hidden" name="catalogues_id" id="catalogues_id" value="{{ $data->id }}">
+                        {{-- <input type="hidden" name="size_id" id="size_id"> --}}
                         <div class="row">
                             <div class="col-md-6">
                                 <fieldset class="form-group">
                                     <label for="name">Size</label>
-                                    <select class="form-control order" name="size" id="size">
+                                    <select class="form-control order" name="size" id="size" required>
                                         <option value="">Pilih Size</option>
                                         @foreach ($size as $size)
-                                            <option value="{{ $size->s_price }}">{{ $size->size }}</option>
+                                            <option value="{{ $size->id }}" data-harga="{{ $size->s_price }}">
+                                                {{ $size->size }}</option>
                                         @endforeach
                                     </select>
                                 </fieldset>
@@ -153,43 +158,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
-            integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script>
-        let YourEditor;
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                window.editor = editor;
-                YourEditor = editor;
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-    <script>
-        $(document).ready(function() {
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                margin: 10,
-                nav: true,
-                loop: true,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 3
-                    },
-                    1000: {
-                        items: 5
-                    }
-                }
-            })
-        })
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
+        integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         // ** CSRF Token * //
@@ -205,18 +176,34 @@
             $("#modal-crud").modal('show');
             $("#modal-title").html('Tambah ke Keranjang');
             $('#form-tambah-edit').trigger("reset");
+            $("#total-harga").html("Rp. 0").change();
         });
 
-        $(".order").on("keyup change", function () {                  
-                var harga = $("#size").val();
-                var qty = $("#qty").val();
-                let rupiah = Intl.NumberFormat('en-ID');
-                var total = parseInt(qty) * parseInt(harga);
-                var reverse = total.toString().split('').reverse().join(''),
-                  ribuan = reverse.match(/\d{1,3}/g);
-                var ribuan = ribuan.join('.').split('').reverse().join('');                                                     
+        $(".order").on("keyup change", function() {
+            var harga = $("#size").find(':selected').data("harga");
+            console.log(harga);
+            var qty = $("#qty").val();
+            let rupiah = Intl.NumberFormat('en-ID');
+            var total = parseInt(qty) * parseInt(harga);
+            var reverse = total.toString().split('').reverse().join(''),
+                ribuan = reverse.match(/\d{1,3}/g);
+            var ribuan = ribuan.join('.').split('').reverse().join('');
             $("#total-harga").html("Rp " + ribuan).change();
-                console.log(harga, qty);
+        });
+
+        $(document).ready(function() {
+
+            $("#form-tambah-edit").submit(function() {
+
+                $(this).find("button[type='submit']").prop('disabled',true);
+
+            });
         });
     </script>
+
+    @if (Session::has('sukses'))
+        <script>
+            toastr.success('Selamat!', '{{ Session::get('sukses') }}');
+        </script>
+    @endif
 @endpush

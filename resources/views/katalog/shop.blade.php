@@ -3,22 +3,22 @@
 @section('title', 'Shop')
 
 @section('container')
-<style>
-    .events {
-        height: 300px;
-        display: flex;
-        justify-content: center;
-        overflow:hidden;
+    <style>
+        .events {
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
 
-    }
+        }
 
-    .events img {
-        width: 90%;
-        margin: auto;
-        display: block;
-        overflow:hidden;
-    }
-</style>
+        .events img {
+            width: 90%;
+            margin: auto;
+            display: block;
+            overflow: hidden;
+        }
+    </style>
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="content-wrapper">
@@ -44,103 +44,58 @@
                 <!-- BODY START -->
                 <section id="basic-input">
                     <div class="row">
-                        <div class="col-md-6">
-                            @foreach ($getData as $item)
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ $item->name }} <span class="badge badge-danger">Hot</span></h4>
-                                        <h6 class="card-subtitle">{{ date_format($item->created_at,"d-m-Y") }}</h6>
-                                    </div>
-                                    <div id="carousel-example-card" class="carousel slide" data-ride="carousel">                                        
-                                        <div class="carousel-inner rounded-0" role="listbox">
-                                            @foreach ($item->images as $img)    
-                                            @if ($loop->first)
-                                            <div class="carousel-item active">
-                                            @else
-                                            <div class="carousel-item">
-                                            @endif
-                                                <img src="{{ $img->name }}" class=" h-400 w-80 mx-auto d-block img-center" alt="First slide" style="width: 400px">
-                                            </div>                                        
-                                            @endforeach                                                                                                                                
+                        @foreach ($getData as $item)
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $item->name }}</h4>
+                                            <h6 class="card-subtitle">{{ date_format($item->created_at, 'd-m-Y') }}</h6>
                                         </div>
-                                        <a class="carousel-control-prev" href="#carousel-example-card" role="button" data-slide="prev">
-                                            <span class="bx bx-chevron-left icon-prev" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carousel-example-card" role="button" data-slide="next">
-                                            <span class="bx bx-chevron-right icon-next" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            <strong>{{ $item->name }}</strong>
-                                        </p>
-                                        <p class="card-text">
-                                            {!! Str::words($item->description, 50, '...') !!}
-                                        </p>
-                                        <a href="/katalog/detail/{{ $item->slug }}" class="mb-5 ml-1 btn btn-info btn-glow float-right">Baca Selengkapnyya</a>
-                                        <a href="" class="mb-5  btn btn-success btn-glow float-right">Order</a>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                            
-                        </div>
+                                        <div id="carousel-example-card" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner rounded-0" role="listbox">
+                                                @foreach ($item->images as $img)
+                                                    @if ($loop->first)
+                                                        <div class="carousel-item active">
+                                                        @else
+                                                            <div class="carousel-item">
+                                                    @endif
+                                                    <img src="{{ $img->name }}"
+                                                        class=" h-400 w-80 mx-auto d-block img-center" alt="First slide"
+                                                        style="width: 400px">
+                                            </div>
+                        @endforeach
                     </div>
-                </section>
-                <!-- BODY END -->
             </div>
+            <a class="carousel-control-prev" href="#carousel-example-card" role="button" data-slide="prev">
+                <span class="bx bx-chevron-left icon-prev" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-example-card" role="button" data-slide="next">
+                <span class="bx bx-chevron-right icon-next" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <strong>{{ $item->name }}</strong>
+            </p>
+            <p class="card-text">
+                {!! Str::words($item->description, 50, '...') !!}
+            </p>
+            <a href="/katalog/detail/{{ $item->slug }}" class="mb-5 ml-1 btn btn-info btn-glow float-right">Baca
+                Selengkapnyya</a>
+            <a href="" class="mb-5  btn btn-success btn-glow float-right">Order</a>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal-crud" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="form-tambah-edit" name="form-tambah-edit" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <input type="hidden" id="id" name="id">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <fieldset class="form-group">
-                                    <label for="name">Kode SKU</label>
-                                    <input type="text" class="form-control" id="sku" name="sku" placeholder=""
-                                        required>
-                                </fieldset>
-
-                                <fieldset class="form-group">
-                                    <label for="telp">Nama Produk</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" placeholder=""
-                                        required>
-                                </fieldset>
-
-                                <fieldset class="form-group">
-                                    <label for="telp">Deskripsi Produk</label>
-                                    <textarea class="form-control" name="description" id="editor" cols="100" rows="8"></textarea>
-                                </fieldset>
-
-                                <fieldset class="form-group">
-                                    <label for="telp">Gambar Produk</label>
-                                    <input type="file" class="form-control" name="images[]" multiple>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan Data</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    </div>
+    @endforeach
+    </div>
+    </div>
+    </section>
+    <!-- BODY END -->
+    </div>
+    </div>
     </div>
 
 @endsection

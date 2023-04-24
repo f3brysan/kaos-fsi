@@ -61,7 +61,7 @@
                                                             <option value="P">Perempuan</option>
                                                         </select>
                                                     </fieldset>
-
+{{-- 
                                                     <fieldset class="form-group">
                                                         <label for="community_id">Asal Komunitas</label>
                                                         <select class="form-control" name="community_id" id="community_id"
@@ -69,9 +69,33 @@
                                                             <option value="">- Pilih Gender -</option>
                                                             <option value="1">SAS</option>
                                                         </select>
+                                                    </fieldset> --}}
+                                                    
+                                                    <fieldset class="form-group">
+                                                        <label for="provinsi">Provinsi Asal </label>
+                                                        <select class="form-control" name="provinsi" id="provinsi"
+                                                            required>           
+                                                            <option value="">-- Pilih Provinsi Alamat Anda --</option>
+                                                            @foreach ($provinsi as $prov)
+                                                                <option value="{{ $prov['province_id'] }}">{{ $prov['province'] }}</option>
+                                                            @endforeach                                                 
+                                                        </select>
                                                     </fieldset>
+
+                                                    <fieldset class="form-group">
+                                                        <label for="community_id">Kota/Kabupaten Asal </label>
+                                                        <select class="form-control" name="kabupaten" id="kabupaten"
+                                                            required>                                                            
+                                                        </select>
+                                                    </fieldset>
+
+                                                    <fieldset>
+                                                        <label for="">Alamat Lengkap</label>
+                                                        <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="10"></textarea>
+                                                    </fieldset>
+
                                                     <button type="submit" style="float: right"
-                                                        class="btn btn-outline-primary" id="tombol-simpan"
+                                                        class="mt-1 btn btn-outline-primary" id="tombol-simpan"
                                                         value="create">Simpan</button>
                                                 </div>
                                             </div>
@@ -126,5 +150,31 @@
                 }
             });
         }
+
+        $('#provinsi').change(function() {
+            var province_id = $(this).val();            
+            if (province_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/getCities/"+ province_id,
+                    dataType: 'JSON',
+                    success: function(res) {
+                        console.log(res);
+                        if (res) {
+                            $("#kabupaten").empty();
+                            $("#kabupaten").append('<option>--- Pilih Kabupaten ---</option>');
+                            $.each(res, function(key, value) {
+                                $("#kabupaten").append('<option value="' + value.city_id + '">' + value.type +" "+ value.city_name +
+                                    '</option>');
+                            });
+                        } else {
+                            $("#kabupaten").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#kabupaten").empty();
+            }
+        });
     </script>
 @endpush

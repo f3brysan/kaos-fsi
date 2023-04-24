@@ -13,4 +13,6 @@ class Tr_image extends Model
     protected $guarded = [
         'id'
     ];
+
+    
 }

@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Tr_biodata;
 use Illuminate\Http\Request;
+use Kodepandai\LaravelRajaOngkir\Facades\RajaOngkir;
 
 class BiodataController extends Controller
 {    
     public function create()
     {
-        return view('biodata.create');
+        $provinsi = RajaOngkir::getProvince();
+        $provinsi = $provinsi['rajaongkir']['results'];
+        // dd($provinsi);
+        return view('biodata.create', compact('provinsi'));
     }
 
     public function store(Request $request)
@@ -23,7 +27,10 @@ class BiodataController extends Controller
                  'name' => $request->name,
                  'phone' => $request->telp,
                  'sex' => $request->sex,
-                 'community_id' => $request->community_id
+                //  'community_id' => $request->community_id
+                'provinsi_id' => $request->provinsi,
+                'kota_id' => $request->kabupaten,
+                'alamat' => $request->alamat
         ]
             );
         } catch (\Exception $e) {

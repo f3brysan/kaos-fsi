@@ -1,14 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\RajaOngkirController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SizePriceController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RajaOngkirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/reload-captcha', [AuthController::class, 'reloadCaptcha']);
-
+Route::get('optimize', function () {
+    Artisan::call('optimize');
+});
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'auth']);
 Route::post('/logout', [AuthController::class, 'logout']);

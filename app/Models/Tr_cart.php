@@ -23,4 +23,9 @@ class Tr_cart extends Model
     {
         return $this->belongsTo(Ms_sizeharga::class, 'hargasize_id', 'id');
     }
+
+    public function payment()
+    {
+        return $this->belongsTo(Tr_payment::class, 'payment_id', 'id');
+    }
 }

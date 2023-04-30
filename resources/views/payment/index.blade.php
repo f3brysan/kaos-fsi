@@ -114,8 +114,9 @@
                                                 role="tabpanel">
                                                 <h6>Menunggu Verifikasi</h6>
                                                 <br>
+                                                <div class="table-responsive">
                                                 <table
-                                                    class="display nowrap table-striped table-bordered table float-center"
+                                                    class="able-striped table-bordered table float-center"
                                                     style="width:100%" id="table2">
                                                     <thead>
                                                         <tr>
@@ -153,6 +154,7 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
+                                            </div>
                                             </div>
                                             <div class="tab-pane" id="account-center" aria-labelledby="account-tab-center"
                                                 role="tabpanel">

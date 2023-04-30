@@ -20,7 +20,7 @@ class CartController extends Controller
         $bio_id = Session::GET('bio')->id;
         $catalogue = Ms_catalogue::where('id', $request->catalogues_id)->first();
         $myCart = Tr_cart::where('biodata_id', $bio_id)->where('catalogue_id', $request->catalogues_id)->where('hargasize_id', $request->size)->whereNull('payment_id')->first();
-        dd($myCart);
+        // dd($myCart);
 
         if ($myCart) {
             $total = $myCart->qty + $request->qty;

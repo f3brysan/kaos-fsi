@@ -93,11 +93,7 @@
                                                                     <a href="javascript:void(0)"
                                                                         onclick="editPesanan('{{ Crypt::encrypt($item->id) }}')"
                                                                         class="btn btn-warning" title="Ubah Pesanan"><i
-                                                                            class="bx bx-edit-alt"></i></a>
-                                                                    &nbsp;
-                                                                    <a href="" class="btn btn-danger"
-                                                                        title="Hapus Pesanan"><i
-                                                                            class="bx bx-trash-alt"></i></a>
+                                                                            class="bx bx-slider-alt"></i></a>                                                                    
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -135,12 +131,13 @@
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
-                        <input type="hidden" name="catalogues_id" id="catalogues_id">                
+                        <input type="hidden" name="catalogues_id" id="catalogues_id">       
+                        <input type="hidden" name="size" id="size">           
                         <div class="row">
                             <div class="col-md-6">
                                 <fieldset class="form-group">
                                     <label for="name">Size</label>
-                                    <input class="form-control order" type="text" name="size" id="size" readonly>                                   
+                                    <input class="form-control order" type="text" name="size2" id="size2" readonly>                                   
                                 </fieldset>
                             </div>
                             <div class="col-md-6">
@@ -205,6 +202,7 @@
                     $("#modal-title").html(data.katalog.name + " Size : " + data.hargasize.size);
                     $("#id").val(data.id);
                     $("#size").val(data.hargasize.id).change();
+                    $("#size2").val(data.hargasize.size).change();
                     $("#qty").val(data.qty);
                     $("#catalogues_id").val(data.catalogue_id);
                     var qty = $("#qty").val();

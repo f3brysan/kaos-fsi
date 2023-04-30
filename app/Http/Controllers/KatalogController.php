@@ -126,9 +126,9 @@ class KatalogController extends Controller
     {
         try {
             $data = Ms_catalogue::with('images')->where('slug', $slug)->first();
-            $size = Ms_sizeharga::all();
+            $size = Ms_sizeharga::where('catalogue_id', $data->id)->get();
 
-            // return $data;    
+            // return $size;    
         } catch (\Exception $e) {
             return $e->getMessage();
         }

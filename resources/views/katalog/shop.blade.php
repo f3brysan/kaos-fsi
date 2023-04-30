@@ -83,9 +83,8 @@
             <p class="card-text">
                 {!! Str::words($item->description, 50, '...') !!}
             </p>
-            <a href="/katalog/detail/{{ $item->slug }}" class="mb-5 ml-1 btn btn-info btn-glow float-right">Baca
-                Selengkapnyya</a>
-            <a href="" class="mb-5  btn btn-success btn-glow float-right">Order</a>
+            <a href="/katalog/detail/{{ $item->slug }}" class="mb-5 ml-1 btn btn-info btn-glow float-right">Lihat</a>
+            {{-- <a href="" class="mb-5  btn btn-success btn-glow float-right">Order</a> --}}
         </div>
     </div>
     </div>

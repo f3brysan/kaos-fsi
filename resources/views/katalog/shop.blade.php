@@ -84,7 +84,7 @@
                 {!! Str::words($item->description, 50, '...') !!}
             </p>              
         </div>
-        <a href="{{ URL::to('/') }}/katalog/detail/{{ $item->slug }}" class="mb-5 m-1 btn btn-info btn-glow">Lihat</a> 
+        <a href="{{ URL::to('/') }}/katalog/detail/{{ $item->slug }}" class="mb-5 ml-1 btn btn-info btn-glow">Lihat</a> 
     </div>
     </div>
     @endforeach

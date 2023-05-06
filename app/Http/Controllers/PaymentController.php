@@ -35,14 +35,14 @@ class PaymentController extends Controller
         $randKode = Str::upper(Str::random(16)) ;
         $bio = SESSION::GET('bio');
         // dd($bio->provinsi_id);
-        $cost = RajaOngkir::getCost(255, 'NEDI', $bio->provinsi_id, $bio->alamat, $hitungPcsKg, 'jne');
+        $cost = RajaOngkir::getCost(255, 'NEDI', $bio->kota_id, $bio->alamat, $hitungPcsKg, 'jne');
         $data = $cost['rajaongkir']['results'];
         // looping biaya ongkir
         foreach ($data as $item) {
             $result = $item['costs'][1]['cost'][0]['value'];
             $description = $item['costs'][1]['description'];
         }
-        // dd($description);
+    //   return $cost;
         $randDigitCode = rand(100, 999); //random 3 digit belakang
         $pungli = $result + 2000 + $randDigitCode; // ongkir + 2000 + 3 digit acak
         // dd($pungli);

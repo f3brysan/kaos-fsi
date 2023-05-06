@@ -82,10 +82,9 @@
             </p>
             <p class="card-text">
                 {!! Str::words($item->description, 50, '...') !!}
-            </p>
-            <a href="/katalog/detail/{{ $item->slug }}" class="mb-5 ml-1 btn btn-info btn-glow float-right">Lihat</a>
-            {{-- <a href="" class="mb-5  btn btn-success btn-glow float-right">Order</a> --}}
+            </p>              
         </div>
+        <a href="{{ URL::to('/') }}/katalog/detail/{{ $item->slug }}" class="mb-5 ml-1 btn btn-info btn-glow">Lihat</a> 
     </div>
     </div>
     @endforeach

@@ -18,6 +18,7 @@ class BiodataController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         try {
             $id = $request->id;
             $user_id =  auth()->user();

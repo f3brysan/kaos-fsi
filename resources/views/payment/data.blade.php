@@ -391,7 +391,7 @@
                         $("#input-file").hide();
                         $("#file-uploaded").show();
                         $("#view-file").click(function() {
-                            window.open("{{ url::to('/') }}" + data.bukti_upload, '_blank');
+                            window.open("{{ url::to('/') }}/" + data.bukti_upload, '_blank');
                         });
                         $("#tombol-simpan").hide();
                         $("#status-unpaid").html('Menunggu Verifikasi Admin');

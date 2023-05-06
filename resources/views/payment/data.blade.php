@@ -390,6 +390,9 @@
                     if (data.bukti_upload) {
                         $("#input-file").hide();
                         $("#file-uploaded").show();
+                        $("#view-file").click(function() {
+                            window.open(data.bukti_upload, '_blank');
+                        });
                         $("#tombol-simpan").hide();
                         $("#status-unpaid").html('Menunggu Verifikasi Admin');
                         $("#tombol-confirm").show();

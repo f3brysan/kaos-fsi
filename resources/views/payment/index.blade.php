@@ -524,7 +524,7 @@
                         $("#status-unpaid").html('Menunggu Verifikasi Admin');
                         $("#file-uploaded").show();
                         $("#view-file").click(function() {
-                            window.open(data.bukti_upload, '_blank');
+                            window.open("{{ url::to('/') }}" + data.bukti_upload, '_blank');
                         });
                         $("#tombol-simpan").hide();
                     } else {
